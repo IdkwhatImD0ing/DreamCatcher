@@ -7,8 +7,8 @@ from vocode.streaming.agent.chat_gpt_agent import ChatGPTAgent
 from vocode.streaming.models.agent import ChatGPTAgentConfig
 from vocode.streaming.models.message import BaseMessage
 from vocode.streaming.models.synthesizer import GTTSSynthesizerConfig
-from vocode.streaming.models.transcriber import (PunctuationEndpointingConfig,
-                                                 WhisperCPPTranscriberConfig)
+from vocode.streaming.models.transcriber import PunctuationEndpointingConfig
+from vocode.streaming.models.transcriber import WhisperCPPTranscriberConfig
 from vocode.streaming.streaming_conversation import StreamingConversation
 from vocode.streaming.synthesizer import GTTSSynthesizer
 from vocode.streaming.transcriber import WhisperCPPTranscriber
