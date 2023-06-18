@@ -1,89 +1,94 @@
-'use client'
+"use client";
 
-import {useState} from 'react'
-import Image from 'next/image'
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 
-import Audio from '@/assets/audio.svg'
-let RecordRTC
+import Audio from "@/assets/audio.svg";
+let RecordRTC;
 
 export default function RecordForm() {
   let lorem =
-    'lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum'
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [inputVal, setInputVal] = useState(lorem)
-  const [recording, setRecording] = useState(false)
-  const [error, setError] = useState('')
+    "lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum";
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [inputVal, setInputVal] = useState(lorem);
+  const [recording, setRecording] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Recording states
-  const recorder = useRef(null)
-  const microphone = useRef(null)
+  const recorder = useRef(null);
+  const microphone = useRef(null);
 
   useEffect(() => {
-    import('recordrtc').then((r) => {
-      RecordRTC = r.default
-    })
+    import("recordrtc").then((r) => {
+      RecordRTC = r.default;
+    });
 
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [recording])
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [recording]);
 
   const handleKeyDown = (event) => {
-    if (event.code === 'Space') {
+    if (event.code === "Space") {
       if (recording) {
-        stopRecording()
+        stopRecording();
       } else {
-        startRecording()
+        startRecording();
       }
     }
-  }
+  };
 
   const captureMicrophone = async (callback) => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({audio: true})
-      callback(stream)
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      callback(stream);
     } catch (error) {
-      alert('Unable to access your microphone.')
-      console.error(error)
+      alert("Unable to access your microphone.");
+      console.error(error);
     }
-  }
+  };
 
   const startRecording = async () => {
     if (!recording) {
       await captureMicrophone((stream) => {
-        microphone.current = stream
+        microphone.current = stream;
 
         const options = {
           // Required format for speech to text, 16k mono channel
-          type: 'audio',
+          type: "audio",
           recorderType: RecordRTC.StereoAudioRecorder,
           desiredSampRate: 16000,
           numberOfAudioChannels: 1,
-        }
+        };
 
-        recorder.current = RecordRTC(stream, options)
-        recorder.current.startRecording()
-        recorder.current.microphone = microphone.current
+        recorder.current = RecordRTC(stream, options);
+        console.log(recorder.current);
+        recorder.current.startRecording();
+        recorder.current.microphone = microphone.current;
 
-        setRecording(true)
-      })
+        setRecording(true);
+      });
     }
-  }
+  };
 
   const stopRecordingCallback = () => {
-    const audioBlob = recorder.current.getBlob()
-    setRecording(false)
-    setLoading(true)
+    console.log(recorder.current);
+    const audioBlob = recorder.current.getBlob();
+    setRecording(false);
+    setLoading(true);
 
-    const reader = new FileReader()
-    reader.readAsDataURL(audioBlob)
+    const reader = new FileReader();
+    reader.readAsDataURL(audioBlob);
     reader.onloadend = () => {
-      let base64Audio = reader.result
+      let base64Audio = reader.result;
+      console.log(base64Audio);
+      return;
 
-      fetch('/dream', {
-        method: 'POST',
+      fetch("/dream", {
+        method: "POST",
         headers: {
-          'Content-Type': 'audio/wav',
+          "Content-Type": "audio/wav",
         },
         body: JSON.stringify({
           audio: base64Audio,
@@ -94,19 +99,15 @@ export default function RecordForm() {
           // additional logic to handle response...
         })
         .finally(() => {
-          recorder.current.microphone.stop()
-        })
-    }
-  }
+          recorder.current.microphone.stop();
+        });
+    };
+  };
 
   const stopRecording = () => {
     if (recorder.current) {
-      recorder.current.stopRecording(stopRecordingCallback)
+      recorder.current.stopRecording(stopRecordingCallback);
     }
-  }
-
-  const isDoneRecording = () => {
-    console.log("done recording");
   };
 
   return (
@@ -131,7 +132,7 @@ export default function RecordForm() {
             <button
               onClick={() => {
                 setRecording(!recording);
-                isDoneRecording();
+                stopRecording();
               }}
               className="font-bold px-[1rem] w-[64px] bg-purple hover:bg-bgwhite transition-all h-[48px] rounded-[8px] border border-black text-[#FFFFFF]"
             >
@@ -139,7 +140,10 @@ export default function RecordForm() {
             </button>
           ) : (
             <button
-              onClick={() => setRecording(!recording)}
+              onClick={() => {
+                setRecording(!recording);
+                startRecording();
+              }}
               className="font-bold px-[1rem] w-[64px] bg-bgwhite hover:bg-purple transition-all h-[48px] rounded-[8px] border border-black text-[#FFFFFF]"
             >
               <Image src={Audio} alt="audio" className="" />
@@ -160,5 +164,5 @@ export default function RecordForm() {
         </button>
       </div>
     </div>
-  )
+  );
 }
