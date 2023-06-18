@@ -105,6 +105,10 @@ export default function RecordForm() {
     }
   }
 
+  const isDoneRecording = () => {
+    console.log("done recording");
+  };
+
   return (
     <div className="flex flex-col text-[16px] font-normal pb-[2rem] md:pb-0">
       <div className="flex flex-col h-full max-w-[18rem]">
@@ -123,12 +127,24 @@ export default function RecordForm() {
           className="mt-[0.5rem] px-[0.5rem] bg-[#FFFFFF] border border-[#BBBBBB] rounded-[4px] h-[36px]"
         />
         <div className="flex items-center mt-[2rem] gap-[1rem]">
-          <button
-            onClick={() => setRecording(!recording)}
-            className="font-bold px-[1rem] w-[64px] bg-bgwhite hover:bg-purple transition-all h-[48px] rounded-[8px] border border-black text-[#FFFFFF]"
-          >
-            <Image src={Audio} alt="audio" className="" />
-          </button>
+          {recording ? (
+            <button
+              onClick={() => {
+                setRecording(!recording);
+                isDoneRecording();
+              }}
+              className="font-bold px-[1rem] w-[64px] bg-purple hover:bg-bgwhite transition-all h-[48px] rounded-[8px] border border-black text-[#FFFFFF]"
+            >
+              <Image src={Audio} alt="audio" className="" />
+            </button>
+          ) : (
+            <button
+              onClick={() => setRecording(!recording)}
+              className="font-bold px-[1rem] w-[64px] bg-bgwhite hover:bg-purple transition-all h-[48px] rounded-[8px] border border-black text-[#FFFFFF]"
+            >
+              <Image src={Audio} alt="audio" className="" />
+            </button>
+          )}
           {recording && <div className="text-purple">Recording...</div>}
         </div>
 

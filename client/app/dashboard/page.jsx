@@ -1,11 +1,10 @@
 import Link from "next/link";
 
-import { auth } from "@/firebase";
-
 import DreamCard from "@/components/DreamCard";
+import CheckLoggedIn from "@/components/CheckLoggedIn";
 
 const Dashboard = () => {
-  console.log(auth.currentUser);
+  <CheckLoggedIn />;
   return (
     <div className="flex md:flex-row flex-col min-h-[calc(100vh-88px)] md:h-[calc(100vh-88px)]">
       <div className="flex flex-col justify-center w-full h-full font-semibold md:px-[2rem] px-[1rem] md:py-0 py-[8rem]">
