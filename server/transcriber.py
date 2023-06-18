@@ -12,6 +12,6 @@ class Transcriber:
 
 if __name__ == "__main__":
     transcriber = Transcriber("tiny.en")
-    wav_file = "/Users/flerovious/Documents/whisper.cpp/samples/jfk.wav"
+    wav_file = "./jfk.wav"
     text = transcriber.transcribe_from_file(wav_file)  # needs 16k 16bit mono wav
     print(text)
