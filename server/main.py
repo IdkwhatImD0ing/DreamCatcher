@@ -2,7 +2,8 @@ import base64
 import io
 import json
 from os import environ
-from typing import List, Union
+from typing import List
+from typing import Union
 
 import dotenv
 import numpy as np
