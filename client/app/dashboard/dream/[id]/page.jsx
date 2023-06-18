@@ -73,7 +73,7 @@ const Dream = () => {
           </div>
         </div>
         <div className="flex w-full justify-center gap-[6rem] mt-[12rem]">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-start">
+          <div className="flex flex-col items-center justify-center text-center lg:items-start lg:text-start">
             <div className="text-[24px] font-semibold">
               What is the <span className="text-purple">mood</span> of my dream?
             </div>
