@@ -6,8 +6,12 @@ import Image from "next/image";
 import Audio from "@/assets/audio.svg";
 
 export default function RecordForm() {
+  let lorem =
+    "lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [inputVal, setInputVal] = useState(lorem);
+  const [recording, setRecording] = useState(false);
   const [error, setError] = useState("");
 
   return (
@@ -27,27 +31,22 @@ export default function RecordForm() {
           onChange={(e) => setPassword(e.target.value)}
           className="mt-[0.5rem] px-[0.5rem] bg-[#FFFFFF] border border-[#BBBBBB] rounded-[4px] h-[36px]"
         />
-        <button className="font-bold px-[1rem] bg-bgwhite hover:bg-purple transition-all w-[190px] h-[48px] rounded-[8px] mt-[2rem] border border-black text-[#FFFFFF]">
-          <Image src={Audio} alt="audio" className="mr-[1rem]" />
-        </button>
-        <div className="w-[400px] max-h-[200px] overflow-y-auto">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus
-          pulvinar pellentesque. Cras semper tempus arcu ut lobortis. Praesent a
-          quam lobortis, tincidunt massa id, aliquet lectus. Sed aliquet rutrum
-          euismod. Morbi ligula massa, luctus eu tempor sit amet, lacinia vel
-          diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-          cursus pulvinar pellentesque. Cras semper tempus arcu ut lobortis.
-          Praesent a quam lobortis, tincidunt massa id, aliquet lectus. Sed
-          aliquet rutrum euismod. Morbi ligula massa, luctus eu tempor sit amet,
-          lacinia vel diam. Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit. Sed cursus pulvinar pellentesque. Cras semper tempus arcu ut
-          lobortis. Praesent a quam lobortis, tincidunt massa id, aliquet
-          lectus. Sed aliquet rutrum euismod. Morbi ligula massa, luctus eu
-          tempor sit amet, lacinia vel diam. Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit. Sed cursus pulvinar pellentesque. Cras
-          semper tempus arcu ut lobortis. Praesent a quam lobortis, tincidunt
-          massa id, aliquet lectus. Sed aliquet rutrum euismod. Morbi ligula
-          massa, luctus eu tempor sit amet, lacinia vel diam.
+        <div className="flex items-center mt-[2rem] gap-[1rem]">
+          <button
+            onClick={() => setRecording(!recording)}
+            className="font-bold px-[1rem] w-[64px] bg-bgwhite hover:bg-purple transition-all h-[48px] rounded-[8px] border border-black text-[#FFFFFF]"
+          >
+            <Image src={Audio} alt="audio" className="" />
+          </button>
+          {recording && <div className="text-purple">Recording...</div>}
+        </div>
+
+        <div className="">
+          <textarea
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
+            className="mt-[1rem] w-[400px] h-[200px] overflow-y-auto bg-bgwhite border border-[#BBBBBB] resize-none px-2 py-1"
+          ></textarea>
         </div>
         <button className="font-bold bg-black hover:bg-purple transition-all w-[176px] h-[56px] rounded-[8px] mt-[2rem] text-[#FFFFFF]">
           Analyze Dream
