@@ -1,6 +1,7 @@
 from typing import Union
-
+from os import environ
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
