@@ -15,26 +15,26 @@ export default function RecordForm() {
   const [error, setError] = useState("");
 
   return (
-    <div className="flex flex-col text-[16px] font-normal pb-[2rem] md:pb-0">
-      <div className="flex flex-col h-full max-w-[18rem]">
+    <div className="flex flex-col pb-[2rem] text-[16px] font-normal md:pb-0">
+      <div className="flex h-full max-w-[18rem] flex-col">
         <label>Dream Title</label>
         <input
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-[0.5rem] px-[0.5rem] bg-[#FFFFFF] border border-[#BBBBBB] rounded-[4px] h-[36px] focus-purple"
+          className="focus-purple mt-[0.5rem] h-[36px] rounded-[4px] border border-[#BBBBBB] bg-[#FFFFFF] px-[0.5rem]"
         />
         <label className="mt-[2rem]">Date of Dream</label>
         <input
           type="date"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-[0.5rem] px-[0.5rem] bg-[#FFFFFF] border border-[#BBBBBB] rounded-[4px] h-[36px]"
+          className="mt-[0.5rem] h-[36px] rounded-[4px] border border-[#BBBBBB] bg-[#FFFFFF] px-[0.5rem]"
         />
-        <div className="flex items-center mt-[2rem] gap-[1rem]">
+        <div className="mt-[2rem] flex items-center gap-[1rem]">
           <button
             onClick={() => setRecording(!recording)}
-            className="font-bold px-[1rem] w-[64px] bg-bgwhite hover:bg-purple transition-all h-[48px] rounded-[8px] border border-black text-[#FFFFFF]"
+            className="h-[48px] w-[64px] rounded-[8px] border border-black bg-bgwhite px-[1rem] font-bold text-[#FFFFFF] transition-all hover:bg-purple"
           >
             <Image src={Audio} alt="audio" className="" />
           </button>
@@ -45,10 +45,10 @@ export default function RecordForm() {
           <textarea
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
-            className="mt-[1rem] w-[400px] h-[200px] overflow-y-auto bg-bgwhite border border-[#BBBBBB] resize-none px-2 py-1"
+            className="mt-[1rem] h-[200px] w-[400px] resize-none overflow-y-auto border border-[#BBBBBB] bg-bgwhite px-2 py-1"
           ></textarea>
         </div>
-        <button className="font-bold bg-black hover:bg-purple transition-all w-[176px] h-[56px] rounded-[8px] mt-[2rem] text-[#FFFFFF]">
+        <button className="mt-[2rem] h-[56px] w-[176px] rounded-[8px] bg-black font-bold text-[#FFFFFF] transition-all hover:bg-purple">
           Analyze Dream
         </button>
       </div>

@@ -8,8 +8,8 @@ import RecordForm from "@/components/RecordForm";
 const Record = () => {
   return (
     <div className="h-full">
-      <div className="md:flex flex-col top-0 left-0 z-[-1] md:w-[50%] h-full bg-bgwhite md:px-[4rem] px-[2rem] py-[2rem] md:py-0">
-        <div className="flex flex-col justify-between w-full h-full">
+      <div className="left-0 top-0 z-[-1] h-full flex-col bg-bgwhite px-[2rem] py-[2rem] md:flex md:w-[50%] md:px-[4rem] md:py-0">
+        <div className="flex h-full w-full flex-col justify-between">
           <div className="text-[24px] font-bold md:mt-[2rem]">
             <div>
               Record New <span className="text-purple">Dream</span>
@@ -20,7 +20,7 @@ const Record = () => {
           </div>
         </div>
       </div>
-      <div className="md:flex justify-center fixed hidden top-0 right-0 z-[-1] w-[50%] h-screen bg-purple px-[3rem]">
+      <div className="fixed right-0 top-0 z-[-1] hidden h-screen w-[50%] justify-center bg-purple px-[3rem] md:flex">
         <Image src={Diary} alt="diary" className="" />
       </div>
     </div>
