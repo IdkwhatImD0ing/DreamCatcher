@@ -65,7 +65,8 @@ def convert_audio(base64_data: str):
     audio_array = audio_array.tolist()
 
     transcriber = Transcriber.remote("tiny.en")
-    text = transcriber.transcribe.remote(audio_array)  # needs 16k 16bit mono wav
+    text = transcriber.transcribe.remote(
+        audio_array)  # needs 16k 16bit mono wav
     output = ray.get(text)
     print(output)
 
