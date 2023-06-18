@@ -13,9 +13,7 @@ from vocode.streaming.streaming_conversation import StreamingConversation
 from vocode.streaming.synthesizer import GTTSSynthesizer
 from vocode.streaming.transcriber import WhisperCPPTranscriber
 
-vocode.setenv(
-    OPENAI_API_KEY="your api key",
-)
+vocode.setenv(OPENAI_API_KEY="your api key", )
 
 
 async def main():
@@ -23,8 +21,7 @@ async def main():
         microphone_input,
         speaker_output,
     ) = create_streaming_microphone_input_and_speaker_output(
-        use_default_devices=True,
-    )
+        use_default_devices=True, )
 
     conversation = StreamingConversation(
         output_device=speaker_output,
@@ -35,18 +32,16 @@ async def main():
                 # compiled whisper.cpp library, follow the quick start on whisper.cpp repo
                 libname="/Users/flerovious/Documents/whisper.cpp/main",
                 # path to whisper model
-                fname_model="/Users/flerovious/Documents/whisper.cpp/models/ggml-base.en.bin",
-            )
-        ),
+                fname_model=
+                "/Users/flerovious/Documents/whisper.cpp/models/ggml-base.en.bin",
+            )),
         agent=ChatGPTAgent(
             ChatGPTAgentConfig(
                 initial_message=BaseMessage(text="Hello!"),
                 prompt_preamble="Have a pleasant conversation about life",
-            ),
-        ),
+            ), ),
         synthesizer=GTTSSynthesizer(
-            GTTSSynthesizerConfig.from_output_device(speaker_output)
-        ),
+            GTTSSynthesizerConfig.from_output_device(speaker_output)),
     )
     await conversation.start()
     print("Conversation started, press Ctrl+C to end")
