@@ -1,18 +1,18 @@
-from typing import Union, List
-from os import environ
-import json
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 import base64
 import io
+import json
+from os import environ
+from typing import List, Union
+
+import dotenv
 import numpy as np
+import openai
+import ray
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from scipy.io import wavfile
 from transcriber import Transcriber
-import ray
-
-import openai
-from pydantic import BaseModel
-import dotenv
 
 app = FastAPI()
 
