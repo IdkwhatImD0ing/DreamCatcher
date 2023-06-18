@@ -8,7 +8,7 @@ import RecordForm from "@/components/RecordForm";
 const Record = () => {
   return (
     <div className="h-full">
-      <div className="md:flex flex-col top-0 left-0 z-[-1] md:w-[50%] h-full bg-bgwhite md:px-[4rem] px-[2rem] md:py-[2rem] py-[4rem]">
+      <div className="md:flex flex-col top-0 left-0 z-[-1] md:w-[50%] h-full bg-bgwhite md:px-[4rem] px-[2rem] py-[2rem] md:py-0">
         <div className="flex flex-col justify-between w-full h-full">
           <div className="text-[24px] font-bold md:mt-[2rem]">
             <div>
