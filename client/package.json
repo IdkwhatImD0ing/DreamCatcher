@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "autoprefixer": "10.4.14",
+    "dotenv": "^16.3.1",
+    "encoding": "^0.1.13",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
     "firebase": "^9.22.2",
+    "framer-motion": "^10.12.16",
     "next": "13.4.6",
     "postcss": "8.4.24",
     "react": "18.2.0",
