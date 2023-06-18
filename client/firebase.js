@@ -1,16 +1,14 @@
-// firebase.js
-"use client";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCYpyxfcR65rleMykNd9_7_TQQY0dnA5jE",
-  authDomain: "dreamcatcher-ad91e.firebaseapp.com",
-  projectId: "dreamcatcher-ad91e",
-  storageBucket: "dreamcatcher-ad91e.appspot.com",
-  messagingSenderId: "203272261404",
-  appId: "1:203272261404:web:609363f3816bd11bc5b4d9",
-  measurementId: "G-X5LB9GBS57",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
