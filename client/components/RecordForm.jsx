@@ -2,11 +2,14 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import Audio from "@/assets/audio.svg";
 let RecordRTC;
 
 export default function RecordForm() {
+  const router = useRouter();
+
   let lorem =
     "lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum";
   const [email, setEmail] = useState("");
@@ -159,7 +162,10 @@ export default function RecordForm() {
             className="mt-[1rem] w-[400px] h-[200px] overflow-y-auto bg-bgwhite border border-[#BBBBBB] resize-none px-2 py-1"
           ></textarea>
         </div>
-        <button className="font-bold bg-black hover:bg-purple transition-all w-[176px] h-[56px] rounded-[8px] mt-[2rem] text-[#FFFFFF]">
+        <button
+          onClick={() => router.push("/dashboard/dream/1")}
+          className="font-bold bg-black hover:bg-purple transition-all w-[176px] h-[56px] rounded-[8px] mt-[2rem] text-[#FFFFFF]"
+        >
           Analyze Dream
         </button>
       </div>
