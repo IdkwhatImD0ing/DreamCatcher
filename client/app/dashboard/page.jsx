@@ -12,11 +12,9 @@ const Dashboard = () => {
           Welcome <span className="text-purple">User</span>
         </div>
         <div className="text-[#AAAAAA]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus
-          pulvinar pellentesque. Cras semper tempus arcu ut lobortis. Praesent a
-          quam lobortis, tincidunt massa id, aliquet lectus. Sed aliquet rutrum
-          euismod. Morbi ligula massa, luctus eu tempor sit amet, lacinia vel
-          diam.
+          Curious about unraveling the hidden meanings behind your dreams? Look
+          no further for a comprehensive understanding and insightful
+          interpretations of your subconscious experiences.
         </div>
         <Link href="/dashboard/record">
           <button className="font-bold bg-black hover:bg-purple transition-all w-[190px] h-[56px] rounded-[8px] mt-[2rem] text-[#FFFFFF]">
