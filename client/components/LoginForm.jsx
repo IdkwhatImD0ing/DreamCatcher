@@ -45,8 +45,6 @@ export default function LoginButton() {
     }
   };
 
-  console.log(result.user.uuid);
-  
   return (
     <div className="flex flex-col text-[16px] font-normal">
       <div className="flex flex-col h-full max-w-[18rem]">
