@@ -1,18 +1,109 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import Image from "next/image";
+import {useState} from 'react'
+import Image from 'next/image'
 
-import Audio from "@/assets/audio.svg";
+import Audio from '@/assets/audio.svg'
+let RecordRTC
 
 export default function RecordForm() {
   let lorem =
-    "lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum";
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [inputVal, setInputVal] = useState(lorem);
-  const [recording, setRecording] = useState(false);
-  const [error, setError] = useState("");
+    'lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum'
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [inputVal, setInputVal] = useState(lorem)
+  const [recording, setRecording] = useState(false)
+  const [error, setError] = useState('')
+
+  // Recording states
+  const recorder = useRef(null)
+  const microphone = useRef(null)
+
+  useEffect(() => {
+    import('recordrtc').then((r) => {
+      RecordRTC = r.default
+    })
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [recording])
+
+  const handleKeyDown = (event) => {
+    if (event.code === 'Space') {
+      if (recording) {
+        stopRecording()
+      } else {
+        startRecording()
+      }
+    }
+  }
+
+  const captureMicrophone = async (callback) => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({audio: true})
+      callback(stream)
+    } catch (error) {
+      alert('Unable to access your microphone.')
+      console.error(error)
+    }
+  }
+
+  const startRecording = async () => {
+    if (!recording) {
+      await captureMicrophone((stream) => {
+        microphone.current = stream
+
+        const options = {
+          // Required format for speech to text, 16k mono channel
+          type: 'audio',
+          recorderType: RecordRTC.StereoAudioRecorder,
+          desiredSampRate: 16000,
+          numberOfAudioChannels: 1,
+        }
+
+        recorder.current = RecordRTC(stream, options)
+        recorder.current.startRecording()
+        recorder.current.microphone = microphone.current
+
+        setRecording(true)
+      })
+    }
+  }
+
+  const stopRecordingCallback = () => {
+    const audioBlob = recorder.current.getBlob()
+    setRecording(false)
+    setLoading(true)
+
+    const reader = new FileReader()
+    reader.readAsDataURL(audioBlob)
+    reader.onloadend = () => {
+      let base64Audio = reader.result
+
+      fetch('/dream', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'audio/wav',
+        },
+        body: JSON.stringify({
+          audio: base64Audio,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // additional logic to handle response...
+        })
+        .finally(() => {
+          recorder.current.microphone.stop()
+        })
+    }
+  }
+
+  const stopRecording = () => {
+    if (recorder.current) {
+      recorder.current.stopRecording(stopRecordingCallback)
+    }
+  }
 
   return (
     <div className="flex flex-col text-[16px] font-normal pb-[2rem] md:pb-0">
@@ -53,5 +144,5 @@ export default function RecordForm() {
         </button>
       </div>
     </div>
-  );
+  )
 }
