@@ -34,8 +34,10 @@ async def main():
             WhisperCPPTranscriberConfig.from_input_device(
                 microphone_input,
                 endpointing_config=PunctuationEndpointingConfig(),
-                libname="/Users/flerovious/Documents/whisper.cpp/main",  # compiled whisper.cpp library, follow the quick start on whisper.cpp repo
-                fname_model="/Users/flerovious/Documents/whisper.cpp/models/ggml-base.en.bin",  # path to whisper model
+                # compiled whisper.cpp library, follow the quick start on whisper.cpp repo
+                libname="/Users/flerovious/Documents/whisper.cpp/main",
+                # path to whisper model
+                fname_model="/Users/flerovious/Documents/whisper.cpp/models/ggml-base.en.bin",
             )
         ),
         agent=ChatGPTAgent(
