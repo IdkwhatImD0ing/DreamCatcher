@@ -47,6 +47,7 @@ export default function SignUpButton() {
           <div className="">
             <label>First Name</label>
             <input
+              required
               type="text"
               placeholder="John"
               value={firstName}
@@ -57,6 +58,7 @@ export default function SignUpButton() {
           <div className="">
             <label>Last Name</label>
             <input
+              required
               type="text"
               placeholder="Doe"
               value={lastName}
@@ -68,6 +70,7 @@ export default function SignUpButton() {
 
         <label className="mt-[1rem]">Email</label>
         <input
+          required
           type="text"
           placeholder="example@domain.com"
           value={email}
@@ -76,6 +79,7 @@ export default function SignUpButton() {
         />
         <label className="mt-[1rem]">Password</label>
         <input
+          required
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

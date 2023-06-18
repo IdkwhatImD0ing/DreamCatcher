@@ -1,20 +1,31 @@
 "use client";
+import { useRouter } from "next/navigation";
 
-import { auth } from "../firebase.js";
+import { auth } from "@/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function LoginButton() {
+  const [user] = useAuthState(auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const router = useRouter();
+
   const provider = new GoogleAuthProvider();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [user, router]);
 
   const loginGoogle = async () => {
     try {
@@ -39,6 +50,7 @@ export default function LoginButton() {
       <div className="flex flex-col h-full max-w-[18rem]">
         <label>Email</label>
         <input
+          required
           type="text"
           placeholder="example@domain.com"
           value={email}
@@ -47,6 +59,7 @@ export default function LoginButton() {
         />
         <label className="mt-[2rem]">Password</label>
         <input
+          required
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
