@@ -9,6 +9,7 @@ import numpy as np
 from scipy.io import wavfile
 from transcriber import Transcriber
 import ray
+import time
 
 import openai
 from pydantic import BaseModel
@@ -119,16 +120,20 @@ def convert_audio(audio: Audio):
     # Load the audio file and convert to a NumPy array
     sample_rate, audio_array = wavfile.read(audio_file)
 
+    audio_array = audio_array.astype(np.float16)
+
+    print("sample rate", sample_rate)
+    print("audio array", audio_array.shape)
+
     # Save audio array to a WAV file
     wavfile.write("output.wav", sample_rate, audio_array)
 
-    audio_array = audio_array.tolist()
-
-    # transcriber = Transcriber.remote("tiny.en")
-    transcriber = Transcriber("tiny.en")
-    # text = transcriber.transcribe.remote(audio_array)  # needs 16k 16bit mono wav
-    text = transcriber.transcribe(audio_array)  # needs 16k 16bit mono wav
-    # output = ray.get(text)
+    transcriber = Transcriber.remote("tiny.en")
+    # transcriber = Transcriber("base")
+    text = transcriber.transcribe.remote(audio_array)  # needs 16k 16bit mono wav
+    # text = transcriber.transcribe(audio_array)  # needs 16k 16bit mono wav
+    # text = transcriber.transcribe_from_file("output.wav")  # needs 16k 16bit mono wav
+    output = ray.get(text)
     output = text
     print(output)
 

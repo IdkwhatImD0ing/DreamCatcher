@@ -2,7 +2,7 @@ from whispercpp import Whisper
 import ray
 
 
-# @ray.remote
+@ray.remote
 class Transcriber:
     def __init__(self, model_name):
         self.whisper = Whisper.from_pretrained(model_name)
@@ -19,5 +19,5 @@ class Transcriber:
 if __name__ == "__main__":
     transcriber = Transcriber.remote("tiny.en")
     wav_file = "jfk.wav"
-    text = transcriber.transcribe_from_file.remote(wav_file)  # needs 16k 16bit mono wav
-    print(ray.get(text))
+    text = transcriber.transcribe_from_file(wav_file)  # needs 16k 16bit mono wav
+    print(text)
