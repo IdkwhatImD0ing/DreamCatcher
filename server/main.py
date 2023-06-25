@@ -60,30 +60,15 @@ def dream_analysis(dream: Dream):
 
 @app.post("/convert_audio")
 def convert_audio(audio: Audio):
-    # Decode base64 data
-    audio_data = base64.b64decode(audio.data)
-
-    # Create an in-memory file-like object
-    audio_file = io.BytesIO(audio_data)
-
-    # Load the audio file and convert to a NumPy array
-    sample_rate, audio_array = wavfile.read(audio_file)
-
-    audio_array = audio_array.astype(np.float16)
-
-    print("sample rate", sample_rate)
-    print("audio array", audio_array.shape)
-
-    # Save audio array to a WAV file
-    wavfile.write("output.wav", sample_rate, audio_array)
 
     transcriber = Transcriber("tiny.en")
-    # transcriber = Transcriber("base")
-    text = transcriber.transcribe(audio_array)  # needs 16k 16bit mono wav
-    # text = transcriber.transcribe(audio_array)  # needs 16k 16bit mono wav
-    # text = transcriber.transcribe_from_file("output.wav")  # needs 16k 16bit mono wav
-    output = ray.get(text)
-    output = text
-    print(output)
+    
+    audio_np_array = transcriber.decode_audio_to_np_array(audio.data)
+    
+    # Normalize between -1 and 1
+    audio_np_array = audio_np_array / np.max(np.abs(audio_np_array))
+    
+    
+    text = transcriber.transcribe(audio_np_array)  # needs 16k 16bit mono wav
 
-    return {"transcript": output}
+    return {"transcript": text}
