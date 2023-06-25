@@ -63,7 +63,10 @@ def convert_audio(audio: Audio):
 
     transcriber = Transcriber("tiny.en")
     
-    audio_np_array = transcriber.decode_audio_to_np_array(audio.data)
+    # Split the data URL at the first comma
+    split_data = audio.data.split(",", 1)
+    
+    audio_np_array = transcriber.decode_audio_to_np_array(split_data[1])
     
     # Normalize between -1 and 1
     audio_np_array = audio_np_array / np.max(np.abs(audio_np_array))
