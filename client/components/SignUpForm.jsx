@@ -1,15 +1,19 @@
 "use client";
 
 import { auth } from "../firebase.js";
+import { useAuthState } from "react-firebase-hooks/auth";
 import {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import { useRouter } from "next/navigation";
 
 export default function SignUpButton() {
+  const [user] = useAuthState(auth);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +21,13 @@ export default function SignUpButton() {
   const [error, setError] = useState("");
 
   const provider = new GoogleAuthProvider();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [user, router]);
 
   const signUpGoogle = async () => {
     try {
