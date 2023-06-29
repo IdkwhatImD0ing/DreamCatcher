@@ -53,8 +53,8 @@ export default function SignUpButton() {
 
   return (
     <div className="flex flex-col text-[16px] font-normal">
-      <div className="flex flex-col h-full max-w-[24rem]">
-        <div className="flex gap-[1rem] w-full">
+      <div className="flex h-full max-w-[24rem] flex-col">
+        <div className="flex w-full gap-[1rem]">
           <div className="">
             <label>First Name</label>
             <input
@@ -63,7 +63,7 @@ export default function SignUpButton() {
               placeholder="John"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="mt-[0.5rem] px-[0.5rem] bg-[#FFFFFF] border border-[#BBBBBB] rounded-[4px] h-[36px] w-full"
+              className="mt-[0.5rem] h-[36px] w-full rounded-[4px] border border-[#BBBBBB] bg-[#FFFFFF] px-[0.5rem]"
             />
           </div>
           <div className="">
@@ -74,7 +74,7 @@ export default function SignUpButton() {
               placeholder="Doe"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="mt-[0.5rem] px-[0.5rem] bg-[#FFFFFF] border border-[#BBBBBB] rounded-[4px] h-[36px] w-full"
+              className="mt-[0.5rem] h-[36px] w-full rounded-[4px] border border-[#BBBBBB] bg-[#FFFFFF] px-[0.5rem]"
             />
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function SignUpButton() {
           placeholder="example@domain.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-[0.5rem] px-[0.5rem] bg-[#FFFFFF] border border-[#BBBBBB] rounded-[4px] h-[36px]"
+          className="mt-[0.5rem] h-[36px] rounded-[4px] border border-[#BBBBBB] bg-[#FFFFFF] px-[0.5rem]"
         />
         <label className="mt-[1rem]">Password</label>
         <input
@@ -94,25 +94,25 @@ export default function SignUpButton() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-[0.5rem] px-[0.5rem] bg-[#FFFFFF] border border-[#BBBBBB] rounded-[4px] h-[36px]"
+          className="mt-[0.5rem] h-[36px] rounded-[4px] border border-[#BBBBBB] bg-[#FFFFFF] px-[0.5rem]"
         />
 
         <button
           onClick={signUpEmail}
-          className="font-bold bg-black hover:bg-purple transition-all w-[176px] h-[56px] rounded-[8px] mt-[2rem] text-[#FFFFFF]"
+          className="mt-[2rem] h-[56px] w-[176px] rounded-[8px] bg-black font-bold text-[#FFFFFF] transition-all hover:bg-purple"
         >
           Sign Up
         </button>
 
         <div className="mt-[1rem] flex items-center">
-          <div className="border-[0.5px] border-[#BBBBBB] w-[8rem] h-0"></div>
-          <div className="w-[4rem] text-[#BBBBBB] text-center">or</div>
-          <div className="border-[0.5px] border-[#BBBBBB] w-[8rem] h-0"></div>
+          <div className="h-0 w-[8rem] border-[0.5px] border-[#BBBBBB]"></div>
+          <div className="w-[4rem] text-center text-[#BBBBBB]">or</div>
+          <div className="h-0 w-[8rem] border-[0.5px] border-[#BBBBBB]"></div>
         </div>
 
         <button
           onClick={signUpGoogle}
-          className="mt-[1rem] font-bold bg-black hover:bg-purple transition-all w-[176px] h-[56px] rounded-[8px] text-[#FFFFFF]"
+          className="mt-[1rem] h-[56px] w-[176px] rounded-[8px] bg-black font-bold text-[#FFFFFF] transition-all hover:bg-purple"
         >
           Sign Up with Google
         </button>
