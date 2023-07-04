@@ -1,45 +1,36 @@
-"use client";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 
-export function addDream(auth, dream) {
-  let userId = auth.user.uid;
-  let colRef = collection(db, userId);
-  let docRef = doc(colRef, "dreams", new Date().toISOString());
+export async function addDream(auth, dream) {
+  // check if auth is not null
+  if (!auth) {
+    throw new Error("Not authenticated");
+  }
 
-  setDoc(docRef, { dream }, { merge: true });
-  return;
+  try {
+    const docRef = await addDoc(
+      collection(db, `users/${auth.uid}/dreams`),
+      dream
+    );
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
 }
 
-export function deleteDream(auth) {
-  let userId = auth.user.uid;
-  let colRef = collection(db, userId);
-  let docRef = doc(colRef, "dreams", uuid);
-
-  updateDoc(docRef, { dream: deleteField() });
-  return;
-}
-
-export async function getAllDreams(auth) {
-  let userId = auth.user.uid;
-  let colRef = collection(db, userId);
-  let docRef = doc(colRef, "dreams");
-  let docSnap = await getDocFromServer(docRef);
-
-  if (docSnap.data() == null) {
-    return "";
+export async function getAllDreams() {
+  try {
+    const q = query(collection(db, `dreams`));
+    const querySnapshot = await getDocs(q);
+    let dreams = [];
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+      // Include the document ID with the rest of the document data
+      dreams.push({ id: doc.id, ...doc.data() });
+    });
+    return dreams;
+  } catch (e) {
+    console.error("Error getting documents: ", e);
   }
-
-  let fields = Object.keys(docSnap.data());
-  if (fields.length == 0) {
-    return "";
-  }
-
-  let string = "";
-  string += fields[0].dream;
-  for (let i = 1; i < fields.length; i++) {
-    string += ",";
-    string += fields[i].dream;
-  }
-  return string;
 }
