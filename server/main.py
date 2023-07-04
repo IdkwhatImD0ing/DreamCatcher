@@ -69,7 +69,6 @@ def dream_analysis(dream: Dream):
 
 @app.post("/convert_audio")
 def convert_audio(audio: Audio):
-
     # transcriber = Transcriber("tiny.en")
 
     # # Split the data URL at the first comma
