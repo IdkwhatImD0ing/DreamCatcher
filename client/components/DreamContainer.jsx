@@ -18,7 +18,7 @@ const DreamContainer = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap md:gap-[4rem] mx-auto w-full max-w-[960px] overflow-auto gap-[0.5rem] mt-[1rem]">
+    <div className="mx-auto mt-[1rem] flex w-full max-w-[960px] flex-wrap gap-[0.5rem] overflow-auto md:gap-[4rem]">
       {dreams.map((dream) => (
         <DreamCard
           key={dream.id}

@@ -1,4 +1,5 @@
-import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+
 import { db } from "./firebase";
 
 export async function addDream(auth, dream) {
