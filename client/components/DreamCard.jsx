@@ -8,22 +8,22 @@ import { useRouter } from "next/navigation";
 const DreamCard = ({ title, description }) => {
   const router = useRouter();
   return (
-    <div className="min-w-[240px] w-[40%] md:w-400px p-4 min-h-[400px] bg-[#ffffff] flex flex-col items-center justify-center rounded-[8px] shadow-sm">
-      <div className="text-[8px] text-center">8-01-2023</div>
-      <div className="w-full h-auto">
+    <div className="md:w-400px flex min-h-[400px] w-[40%] min-w-[240px] flex-col items-center justify-center rounded-[8px] bg-[#ffffff] p-4 shadow-sm">
+      <div className="text-center text-[8px]">8-01-2023</div>
+      <div className="h-auto w-full">
         <Image
           src={Spaceship}
           alt="spaceship"
-          className="bg-cover h-full w-full"
+          className="h-full w-full bg-cover"
         ></Image>
       </div>
-      <div className="text-start self-start mt-[1rem]">{title}</div>
-      <div className="text-start self-start mt-[0.5rem] text-[#AAAAAA]">
+      <div className="mt-[1rem] self-start text-start">{title}</div>
+      <div className="mt-[0.5rem] self-start text-start text-[#AAAAAA]">
         {description}
       </div>
       <button
         onClick={() => router.push("/dashboard/dream/1")}
-        className="font-bold bg-black hover:bg-purple transition-all w-[184px] h-[40px] rounded-[8px] mt-[1rem] text-[#FFFFFF]"
+        className="mt-[1rem] h-[40px] w-[184px] rounded-[8px] bg-black font-bold text-[#FFFFFF] transition-all hover:bg-purple"
       >
         Revisit Dream
       </button>
