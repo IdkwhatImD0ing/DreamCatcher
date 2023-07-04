@@ -29,6 +29,7 @@ app.add_middleware(
 
 dotenv.load_dotenv()
 
+
 class Dream(BaseModel):
     content: str
 
@@ -70,16 +71,15 @@ def dream_analysis(dream: Dream):
 def convert_audio(audio: Audio):
 
     # transcriber = Transcriber("tiny.en")
-    
+
     # # Split the data URL at the first comma
     # split_data = audio.data.split(",", 1)
-    
+
     # audio_np_array = transcriber.decode_audio_to_np_array(split_data[1])
-    
+
     # # Normalize between -1 and 1
     # audio_np_array = audio_np_array / np.max(np.abs(audio_np_array))
-    
-    
+
     # text = transcriber.transcribe(audio_np_array)  # needs 16k 16bit mono wav
 
     return {"transcript": audio.data}
