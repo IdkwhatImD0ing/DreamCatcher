@@ -5,7 +5,7 @@ import Spaceship from "@/assets/spaceship.jpg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const DreamCard = () => {
+const DreamCard = ({ title, description }) => {
   const router = useRouter();
   return (
     <div className="min-w-[240px] w-[40%] md:w-400px p-4 min-h-[400px] bg-[#ffffff] flex flex-col items-center justify-center rounded-[8px] shadow-sm">
@@ -17,9 +17,9 @@ const DreamCard = () => {
           className="bg-cover h-full w-full"
         ></Image>
       </div>
-      <div className="text-start self-start mt-[1rem]">Flying Spaceship</div>
+      <div className="text-start self-start mt-[1rem]">{title}</div>
       <div className="text-start self-start mt-[0.5rem] text-[#AAAAAA]">
-        The spaceship's interior is a sight to behold...
+        {description}
       </div>
       <button
         onClick={() => router.push("/dashboard/dream/1")}

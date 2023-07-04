@@ -10,11 +10,9 @@ let RecordRTC;
 export default function RecordForm() {
   const router = useRouter();
 
-  let lorem =
-    "lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [inputVal, setInputVal] = useState(lorem);
+  const [inputVal, setInputVal] = useState("");
   const [recording, setRecording] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -86,25 +84,29 @@ export default function RecordForm() {
     reader.onloadend = () => {
       let base64Audio = reader.result;
       console.log(base64Audio);
-      return;
+      sendAudioToServer(base64Audio);
+    };
+  };
 
-      fetch("/dream", {
+  const sendAudioToServer = async (base64Audio) => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/convert_audio", {
         method: "POST",
         headers: {
-          "Content-Type": "audio/wav",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          audio: base64Audio,
+          data: base64Audio,
         }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // additional logic to handle response...
-        })
-        .finally(() => {
-          recorder.current.microphone.stop();
-        });
-    };
+      });
+
+      const data = await response.json();
+      setInputVal(data.transcript);
+    } catch (error) {
+      console.error("Error sending audio to server: ", error);
+    } finally {
+      recorder.current.microphone.stop();
+    }
   };
 
   const stopRecording = () => {
